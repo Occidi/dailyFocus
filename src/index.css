@@ -81,8 +81,3 @@ button:focus-visible {
   background-color: #102c0f;
   color: #f8fafc;
 }
-
-/* Ensure body fills viewport (kept from original styles) */
-body {
-  min-height: 100vh;
-}

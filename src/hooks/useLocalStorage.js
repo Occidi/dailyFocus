@@ -1,21 +1,20 @@
 import { useState, useEffect } from "react";
 
 /**
- * useLocalStorage - sync a state value with localStorage (JSON)
- * @param {string} key localStorage key
- * @param {*} initialValue initial value or lazy initializer
+ * useLocalStorage - sync a state value with the localStorage
+ * @param {string} key - the localStorage key
+ * @param {*} initialValue - a value to be stored
  * @returns {[any, function]} [value, setValue]
  */
 export default function useLocalStorage(key, initialValue) {
   const [state, setState] = useState(() => {
     try {
       const raw = window.localStorage.getItem(key);
-      if (raw !== null) return JSON.parse(raw);
-      return typeof initialValue === "function" ? initialValue() : initialValue;
+      const result = raw !== null ? JSON.parse(raw) : initialValue;
+      return result;
     } catch (err) {
       console.error(err);
-      // fallback to initial value on parse errors
-      return typeof initialValue === "function" ? initialValue() : initialValue;
+      return initialValue;
     }
   });
 
