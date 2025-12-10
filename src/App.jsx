@@ -4,12 +4,29 @@ import ThemeToggle from "./components/ThemeToggle.jsx";
 function App() {
   return (
     <>
-      <div className="flex justify-end">
-        <ThemeToggle />
-      </div>
-      <div className="flex justify-center items-center h-screen">
-        <h1 className="text-4xl font-bold">Hello World</h1>
-      </div>
+      <header className="w-full">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-end">
+          <ThemeToggle />
+        </div>
+      </header>
+
+      <main className="w-full flex-1">
+        <div className="app-container">
+          <div className="grid grid-cols-3 gap-6">
+            <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20">
+              <h2 className="text-xl font-semibold">Task list</h2>
+            </section>
+
+            <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20 min-h-[10rem]">
+              <h2 className="text-xl font-semibold">Focus List</h2>
+            </section>
+
+            <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20 min-h-[10rem]">
+              <h2 className="text-xl font-semibold">Completed List</h2>
+            </section>
+          </div>
+        </div>
+      </main>
     </>
   );
 }
