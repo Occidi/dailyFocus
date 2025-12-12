@@ -11,7 +11,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="p-2 rounded-md border bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+      className="p-2 rounded-md border flex items-center justify-center"
       aria-label="Toggle theme"
       title="Toggle theme"
     >

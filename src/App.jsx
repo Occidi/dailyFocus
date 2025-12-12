@@ -1,4 +1,3 @@
-import "./App.css";
 import ThemeToggle from "./components/ThemeToggle.jsx";
 
 function App() {
@@ -11,17 +10,17 @@ function App() {
       </header>
 
       <main className="w-full flex-1">
-        <div className="app-container">
-          <div className="grid grid-cols-3 gap-6">
+        <div className="max-w-[1280px] mx-auto p-8 text-center">
+          <div className="grid sm:grid-cols-3 grid-cols-1 gap-6">
             <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20">
               <h2 className="text-xl font-semibold">Task list</h2>
             </section>
 
-            <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20 min-h-[10rem]">
+            <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20">
               <h2 className="text-xl font-semibold">Focus List</h2>
             </section>
 
-            <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20 min-h-[10rem]">
+            <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20">
               <h2 className="text-xl font-semibold">Completed List</h2>
             </section>
           </div>
