@@ -1,4 +1,9 @@
 import useLocalStorage from "../../../hooks/useLocalStorage";
+import {
+  createTask,
+  removeTaskById,
+  addTaskToList,
+} from "../utils/taskHelpers";
 
 const STORAGE_KEY = "dailyFocus_tasks";
 
@@ -17,24 +22,17 @@ const useTasks = () => {
    * @param {string} text - description of the task
    */
   const addTask = (text) => {
-    if (!text || text.trim() === "") {
-      return;
+    const newTask = createTask(text);
+    if (newTask) {
+      setTasks((prevTasks) => addTaskToList(prevTasks, newTask));
     }
-
-    const newTask = {
-      id: crypto.randomUUID(),
-      text: text.trim(),
-      createdAt: Date.now(),
-    };
-
-    setTasks((prevTasks) => [...prevTasks, newTask]);
   };
 
   /**
    * @param {string} id - the ID of the task we want to delete
    */
   const deleteTask = (id) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    setTasks((prevTasks) => removeTaskById(prevTasks, id));
   };
 
   /**
