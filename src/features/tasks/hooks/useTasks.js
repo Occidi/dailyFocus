@@ -8,7 +8,7 @@ import {
 const STORAGE_KEY = "dailyFocus_tasks";
 
 /**
- * Custom hook for managing tasks with localStorage persistence.
+ * Custom hook for managing the initial list of tasks
  *
  * @returns {Object} Task management functions and state
  * @returns {Array} tasks - Array of task objects

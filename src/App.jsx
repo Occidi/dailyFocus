@@ -1,8 +1,30 @@
 import ThemeToggle from "./components/ThemeToggle.jsx";
 import { TaskInput, TaskList, useTasks } from "./features/tasks";
+import useFocusList from "./features/focus/hooks/useFocusList";
+import useCompleted from "./features/completed/hooks/useCompleted";
+import FocusList from "./features/focus/components/FocusList";
+import CompletedList from "./features/completed/components/CompletedList";
 
 function App() {
   const { tasks, addTask, deleteTask } = useTasks();
+  const { focusList, addToFocus, removeFromFocus, canAddToFocus } =
+    useFocusList();
+  const { completed, addToCompleted } = useCompleted();
+
+  const handleAddToFocus = (taskId) => {
+    const task = tasks.find((t) => t.id === taskId);
+    if (task && addToFocus(task)) {
+      deleteTask(taskId);
+    }
+  };
+
+  const handleCompleteTask = (taskId) => {
+    const task = focusList.find((t) => t.id === taskId);
+    if (task) {
+      addToCompleted(task);
+      removeFromFocus(taskId);
+    }
+  };
 
   return (
     <>
@@ -17,15 +39,23 @@ function App() {
           <div className="grid sm:grid-cols-3 grid-cols-1 gap-6">
             <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20">
               <TaskInput addTask={addTask} />
-              <TaskList tasks={tasks} deleteTask={deleteTask} />
+              <TaskList
+                tasks={tasks}
+                deleteTask={deleteTask}
+                onAddToFocus={handleAddToFocus}
+                canAddToFocus={canAddToFocus()}
+              />
             </section>
 
             <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20">
-              <h2 className="text-xl font-semibold">Focus List</h2>
+              <FocusList
+                focusList={focusList}
+                onComplete={handleCompleteTask}
+              />
             </section>
 
             <section className="rounded-lg p-6 shadow-sm bg-white/10 dark:bg-black/20">
-              <h2 className="text-xl font-semibold">Completed List</h2>
+              <CompletedList completed={completed} />
             </section>
           </div>
         </div>

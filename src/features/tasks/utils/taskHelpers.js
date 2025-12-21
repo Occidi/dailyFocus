@@ -40,3 +40,63 @@ export const addTaskToList = (tasks = [], task) => {
 
   return [...tasks, task];
 };
+
+/**
+ * Finds a task by ID in a task array.
+ *
+ * @param {Array} tasks - Array of task objects
+ * @param {string} id - The ID of the task to find
+ * @returns {Object|undefined} The task object or undefined if not found
+ */
+export const findTaskById = (tasks = [], id = "") =>
+  tasks.find((task) => task.id === id);
+
+/**
+ * Moves a task from one list to another.
+ *
+ * @param {Array} fromList - Source array of tasks
+ * @param {Array} toList - Destination array of tasks
+ * @param {string} taskId - The ID of the task to move
+ * @param {number} maxSize - Optional maximum size for the destination list
+ * @returns {Object|null} Object with updated lists {fromList, toList} or null if invalid
+ */
+export const moveTaskBetweenLists = (
+  fromList = [],
+  toList = [],
+  taskId = "",
+  maxSize = null
+) => {
+  if (maxSize !== null && toList.length >= maxSize) {
+    return null;
+  }
+
+  const taskToMove = findTaskById(fromList, taskId);
+  if (!taskToMove) {
+    return null;
+  }
+
+  const updatedFromList = removeTaskById(fromList, taskId);
+  const updatedToList = addTaskToList(toList, taskToMove);
+
+  return {
+    fromList: updatedFromList,
+    toList: updatedToList,
+  };
+};
+
+/**
+ * Adds a completion timestamp to a task object.
+ *
+ * @param {Object} task - The task object
+ * @returns {Object} New task object with completedAt timestamp
+ */
+export const addCompletionTimestamp = (task) => {
+  if (!task) {
+    return null;
+  }
+
+  return {
+    ...task,
+    completedAt: Date.now(),
+  };
+};
