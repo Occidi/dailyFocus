@@ -1,5 +1,5 @@
-import ThemeProvider from "./ThemeContext.js";
-import useTheme from "./useTheme.js";
+import ThemeProvider from "./ThemeContext.tsx";
+import useTheme from "./useTheme.ts";
 
 export { ThemeProvider, useTheme };
 
