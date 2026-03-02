@@ -1,9 +1,9 @@
-import ThemeToggle from "./components/ThemeToggle.jsx";
-import { TaskInput, TaskList, useTasks } from "./features/tasks";
-import useFocusList from "./features/focus/hooks/useFocusList";
-import useCompleted from "./features/completed/hooks/useCompleted";
-import FocusList from "./features/focus/components/FocusList";
-import CompletedList from "./features/completed/components/CompletedList";
+import ThemeToggle from "./components/ThemeToggle.js";
+import { TaskInput, TaskList, useTasks } from "./features/tasks/index.js";
+import useFocusList from "./features/focus/hooks/useFocusList.js";
+import useCompleted from "./features/completed/hooks/useCompleted.js";
+import FocusList from "./features/focus/components/FocusList.js";
+import CompletedList from "./features/completed/components/CompletedList.js";
 
 function App() {
   const { tasks, addTask, deleteTask } = useTasks();
