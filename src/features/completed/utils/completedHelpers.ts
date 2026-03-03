@@ -4,7 +4,7 @@
  * @param {number} timestamp - milliseconds since epoch
  * @returns {string} Relative time string
  */
-export const formatRelativeTime = (timestamp) => {
+export const formatRelativeTime = (timestamp: number) => {
   const now = Date.now();
   const diffMs = now - timestamp;
   const diffSec = Math.floor(diffMs / 1000);

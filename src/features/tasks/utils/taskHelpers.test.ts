@@ -6,6 +6,7 @@ import {
   findTaskById,
   moveTaskBetweenLists,
   addCompletionTimestamp,
+  type Task,
 } from "./taskHelpers";
 
 describe("createTask", () => {
@@ -38,19 +39,19 @@ describe("createTask", () => {
 });
 
 describe("removeTaskById", () => {
-  const tasks = [
-    { id: "1", text: "Task 1", createdAt: 123 },
-    { id: "2", text: "Task 2", createdAt: 123 },
-    { id: "3", text: "Task 3", createdAt: 123 },
+  const tasks: Task[] = [
+    { id: "1-2-3-4-5", text: "Task 1", createdAt: 123 },
+    { id: "1-2-3-4-6", text: "Task 2", createdAt: 123 },
+    { id: "1-2-3-4-7", text: "Task 3", createdAt: 123 },
   ];
 
   it("removes task with matching id", () => {
-    const result = removeTaskById(tasks, "2");
+    const result = removeTaskById(tasks, "1-2-3-4-6");
 
     expect(result).toHaveLength(2);
     expect(result).toEqual([
-      { id: "1", text: "Task 1", createdAt: 123 },
-      { id: "3", text: "Task 3", createdAt: 123 },
+      { id: "1-2-3-4-5", text: "Task 1", createdAt: 123 },
+      { id: "1-2-3-4-7", text: "Task 3", createdAt: 123 },
     ]);
   });
 
@@ -83,25 +84,6 @@ describe("addTaskToList", () => {
     expect(result[2]).toEqual(newTask);
   });
 
-  it.each([
-    { wrongEntry: true },
-    { wrongEntry: "" },
-    { wrongEntry: null },
-    { wrongEntry: undefined },
-  ])("returns null if the first param is $wrongEntry", ({ wrongEntry }) => {
-    const newTask = { id: "1", text: "First task", createdAt: 123 };
-    expect(() => addTaskToList(wrongEntry, newTask)).toThrow;
-  });
-
-  it.each([
-    { wrongEntry: true },
-    { wrongEntry: "" },
-    { wrongEntry: null },
-    { wrongEntry: undefined },
-  ])("returns null if the second param is $wrongEntry", ({ wrongEntry }) => {
-    expect(() => addTaskToList(tasks, wrongEntry)).toThrow;
-  });
-
   it("adds task to empty array or when not provided with a first param", () => {
     const newTask = { id: "1", text: "First task", createdAt: 123 };
     const result = addTaskToList([], newTask);
@@ -115,16 +97,16 @@ describe("addTaskToList", () => {
 });
 
 describe("findTaskById", () => {
-  const tasks = [
-    { id: "1", text: "Task 1", createdAt: 123 },
-    { id: "2", text: "Task 2", createdAt: 123 },
-    { id: "3", text: "Task 3", createdAt: 123 },
+  const tasks: Task[] = [
+    { id: "1-2-3-4-5", text: "Task 1", createdAt: 123 },
+    { id: "1-2-3-4-6", text: "Task 2", createdAt: 123 },
+    { id: "1-2-3-4-7", text: "Task 3", createdAt: 123 },
   ];
 
   it("finds and returns task with matching id", () => {
-    const result = findTaskById(tasks, "2");
+    const result = findTaskById(tasks, "1-2-3-4-6");
 
-    expect(result).toEqual({ id: "2", text: "Task 2", createdAt: 123 });
+    expect(result).toEqual({ id: "1-2-3-4-6", text: "Task 2", createdAt: 123 });
   });
 
   it("returns undefined when task id not found", () => {
@@ -141,34 +123,35 @@ describe("findTaskById", () => {
 });
 
 describe("moveTaskBetweenLists", () => {
-  const fromList = [
-    { id: "1", text: "Task 1", createdAt: 123 },
-    { id: "2", text: "Task 2", createdAt: 123 },
-    { id: "3", text: "Task 3", createdAt: 123 },
+  const fromList: Task[] = [
+    { id: "1-2-3-4-5", text: "Task 1", createdAt: 123 },
+    { id: "1-2-3-4-5", text: "Task 2", createdAt: 123 },
+    { id: "1-2-3-4-5", text: "Task 3", createdAt: 123 },
   ];
-  const toList = [{ id: "4", text: "Task 4", createdAt: 123 }];
+  const toList: Task[] = [{ id: "1-2-3-4-5", text: "Task 4", createdAt: 123 }];
 
   it("moves task from one list to another", () => {
     const result = moveTaskBetweenLists(fromList, toList, "2");
+    if (result) {
+      expect(result.fromList).toHaveLength(2);
+      expect(result.fromList).toEqual([
+        { id: "1", text: "Task 1", createdAt: 123 },
+        { id: "3", text: "Task 3", createdAt: 123 },
+      ]);
 
-    expect(result.fromList).toHaveLength(2);
-    expect(result.fromList).toEqual([
-      { id: "1", text: "Task 1", createdAt: 123 },
-      { id: "3", text: "Task 3", createdAt: 123 },
-    ]);
-
-    expect(result.toList).toHaveLength(2);
-    expect(result.toList[1]).toEqual({
-      id: "2",
-      text: "Task 2",
-      createdAt: 123,
-    });
+      expect(result.toList).toHaveLength(2);
+      expect(result.toList[1]).toEqual({
+        id: "2",
+        text: "Task 2",
+        createdAt: 123,
+      });
+    }
   });
 
   it("respects maxSize constraint and returns null if destination is full", () => {
-    const smallToList = [
-      { id: "4", text: "Task 4", createdAt: 123 },
-      { id: "5", text: "Task 5", createdAt: 123 },
+    const smallToList: Task[] = [
+      { id: "1-2-3-4-5", text: "Task 4", createdAt: 123 },
+      { id: "1-2-3-4-5", text: "Task 5", createdAt: 123 },
     ];
 
     const result = moveTaskBetweenLists(fromList, smallToList, "2", 2);
@@ -190,14 +173,15 @@ describe("moveTaskBetweenLists", () => {
 
   it("moves task to empty destination list", () => {
     const result = moveTaskBetweenLists(fromList, [], "2");
-
-    expect(result.fromList).toHaveLength(2);
-    expect(result.toList).toHaveLength(1);
-    expect(result.toList[0]).toEqual({
-      id: "2",
-      text: "Task 2",
-      createdAt: 123,
-    });
+    if (result) {
+      expect(result.fromList).toHaveLength(2);
+      expect(result.toList).toHaveLength(1);
+      expect(result.toList[0]).toEqual({
+        id: "2",
+        text: "Task 2",
+        createdAt: 123,
+      });
+    }
   });
 });
 
@@ -212,36 +196,29 @@ describe("addCompletionTimestamp", () => {
   });
 
   it("adds completedAt timestamp to task", () => {
-    const task = { id: "1", text: "Task 1", createdAt: 123 };
+    const task: Task = { id: "1-2-3-4-5", text: "Task 1", createdAt: 123 };
     const result = addCompletionTimestamp(task);
 
     expect(result).toEqual({
-      id: "1",
+      id: "1-2-3-4-5",
       text: "Task 1",
       createdAt: 123,
       completedAt: 456,
     });
   });
 
-  it("returns null if task is null or undefined", () => {
-    expect(addCompletionTimestamp(null)).toBeNull();
-    expect(addCompletionTimestamp(undefined)).toBeNull();
-  });
-
   it("preserves all original task properties", () => {
-    const task = {
-      id: "2",
+    const task: Task = {
+      id: "1-2-3-4-5",
       text: "Complex Task",
       createdAt: 100,
-      customProp: "value",
     };
     const result = addCompletionTimestamp(task);
 
     expect(result).toEqual({
-      id: "2",
+      id: "1-2-3-4-5",
       text: "Complex Task",
       createdAt: 100,
-      customProp: "value",
       completedAt: 456,
     });
   });

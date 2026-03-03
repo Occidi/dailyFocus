@@ -1,6 +1,8 @@
 import { formatRelativeTime } from "../utils/completedHelpers";
 
-function CompletedTaskItem({ task }) {
+import type { CompletedTask } from "./CompletedList";
+
+export function CompletedTaskItem({ task }: { task: CompletedTask }) {
   return (
     <li className="py-3 px-2 group">
       <div className="flex items-start justify-between gap-3">

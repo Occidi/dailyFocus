@@ -1,4 +1,12 @@
-function FocusTaskItem({ task, onComplete }) {
+import type { Task } from "../../tasks/utils/taskHelpers";
+
+export default function FocusTaskItem({
+  task,
+  onComplete,
+}: {
+  task: Task;
+  onComplete: (taskId: string) => void;
+}) {
   return (
     <li className="flex items-center justify-between gap-4 py-4 px-2">
       <div className="flex-1">
@@ -17,5 +25,3 @@ function FocusTaskItem({ task, onComplete }) {
     </li>
   );
 }
-
-export default FocusTaskItem;

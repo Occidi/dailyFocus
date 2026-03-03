@@ -1,3 +1,5 @@
+import type { CompletedTask } from "../../completed/components/CompletedList";
+
 export type Task = {
   id: `${string}-${string}-${string}-${string}-${string}`;
   text: string;
@@ -42,10 +44,7 @@ export const removeTaskById = (
  * @param {Object} task - Task object to add
  * @returns {Array} New array with the task added
  */
-export const addTaskToList = (
-  tasks: Array<Task> = [],
-  task: Task,
-): Array<Task> => {
+export const addTaskToList = <T>(tasks: Array<T> = [], task: T): Array<T> => {
   if (!Array.isArray(tasks) || !task) {
     throw new Error("trying to call addTaskToList with wrong parameters");
   }
@@ -104,7 +103,7 @@ export const moveTaskBetweenLists = (
  * @param {Object} task - The task object
  * @returns {Object} New task object with completedAt timestamp
  */
-export const addCompletionTimestamp = (task: Task): Task | null => {
+export const addCompletionTimestamp = (task: Task): CompletedTask | null => {
   if (!task) {
     return null;
   }

@@ -6,6 +6,8 @@ import {
   type Task,
 } from "../../tasks/utils/taskHelpers";
 
+import type { CompletedTask } from "../components/CompletedList";
+
 const STORAGE_KEY = "dailyFocus_completed";
 
 /**
@@ -17,8 +19,8 @@ const STORAGE_KEY = "dailyFocus_completed";
  */
 const useCompleted = () => {
   const [completed, setCompleted] = useLocalStorage(STORAGE_KEY, []) as [
-    Task[],
-    Dispatch<SetStateAction<Task[]>>,
+    CompletedTask[],
+    Dispatch<SetStateAction<CompletedTask[]>>,
   ];
 
   /**
@@ -31,9 +33,7 @@ const useCompleted = () => {
 
     const taskWithTimestamp = addCompletionTimestamp(task);
     if (taskWithTimestamp) {
-      setCompleted((prevList: Task[]) =>
-        addTaskToList(prevList, taskWithTimestamp),
-      );
+      setCompleted((prevList) => addTaskToList(prevList, taskWithTimestamp));
     }
   };
 

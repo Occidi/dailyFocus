@@ -1,6 +1,13 @@
 import FocusTaskItem from "./FocusTaskItem";
+import type { Task } from "../../tasks/utils/taskHelpers";
 
-function FocusList({ focusList, onComplete }) {
+function FocusList({
+  focusList,
+  onComplete,
+}: {
+  focusList: Task[];
+  onComplete: (taskId: string) => void;
+}) {
   return (
     <section className="rounded-lg bg-white bg-slate-900/60 border border-slate-200 border-slate-700 p-4 sm:p-6 shadow-sm">
       <h2 className="text-xl font-semibold mb-4 text-gray-900 text-slate-100">

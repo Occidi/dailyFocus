@@ -1,10 +1,14 @@
 import { useState } from "react";
 
-export default function TaskInput({ addTask }) {
+export default function TaskInput({
+  addTask,
+}: {
+  addTask: (text: string) => void;
+}) {
   const [inputText, setInputText] = useState("");
   const trimmedInputText = inputText.trim();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!trimmedInputText) {
       return;

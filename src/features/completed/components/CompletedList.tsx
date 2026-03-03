@@ -1,6 +1,13 @@
 import CompletedTaskItem from "./CompletedTaskItem";
 
-function CompletedList({ completed }) {
+export type CompletedTask = {
+  id: `${string}-${string}-${string}-${string}-${string}`;
+  text: string;
+  createdAt: number;
+  completedAt: number;
+};
+
+function CompletedList({ completed }: { completed: CompletedTask[] }) {
   return (
     <section className="rounded-lg bg-white bg-slate-900/60 border border-slate-700 p-4 sm:p-6 shadow-sm">
       <h2 className="text-xl font-semibold mb-4 text-gray-900 text-slate-100">

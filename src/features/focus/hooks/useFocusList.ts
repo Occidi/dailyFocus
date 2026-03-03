@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from "react";
 import useLocalStorage from "../../../hooks/useLocalStorage";
 import {
   removeTaskById,
@@ -20,11 +21,14 @@ const MAX_FOCUS_TASKS = 4;
  */
 const useFocusList = (): {
   focusList: Task[];
-  addToFocus: Function;
+  addToFocus: (task: Task) => boolean;
   removeFromFocus: (id: string) => void;
-  canAddToFocus: Function;
+  canAddToFocus: () => boolean;
 } => {
-  const [focusList, setFocusList] = useLocalStorage(STORAGE_KEY, []);
+  const [focusList, setFocusList] = useLocalStorage(STORAGE_KEY, []) as [
+    Task[],
+    Dispatch<SetStateAction<Task[]>>,
+  ];
 
   /**
    * @param {Object} task - task object to add to focus list
