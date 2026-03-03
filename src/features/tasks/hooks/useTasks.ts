@@ -3,7 +3,9 @@ import {
   createTask,
   removeTaskById,
   addTaskToList,
+  type Task,
 } from "../utils/taskHelpers";
+import type { Dispatch, SetStateAction } from "react";
 
 const STORAGE_KEY = "dailyFocus_tasks";
 
@@ -15,13 +17,18 @@ const STORAGE_KEY = "dailyFocus_tasks";
  * @returns {Function} addTask - Add a new task with text
  * @returns {Function} deleteTask - Delete a task by id
  */
-const useTasks = () => {
-  const [tasks, setTasks] = useLocalStorage(STORAGE_KEY, []);
+const useTasks = (): {
+  tasks: Task[];
+  addTask: (text: string) => void;
+  deleteTask: (id: string) => void;
+  getTasks: () => Task[];
+} => {
+  const [tasks, setTasks] = useLocalStorage(STORAGE_KEY, []) as [
+    Task[],
+    Dispatch<SetStateAction<Task[]>>,
+  ];
 
-  /**
-   * @param {string} text - description of the task
-   */
-  const addTask = (text) => {
+  const addTask = (text: string) => {
     const newTask = createTask(text);
     if (newTask) {
       setTasks((prevTasks) => addTaskToList(prevTasks, newTask));
@@ -31,7 +38,7 @@ const useTasks = () => {
   /**
    * @param {string} id - the ID of the task we want to delete
    */
-  const deleteTask = (id) => {
+  const deleteTask = (id: string) => {
     setTasks((prevTasks) => removeTaskById(prevTasks, id));
   };
 

@@ -1,5 +1,9 @@
 import useLocalStorage from "../../../hooks/useLocalStorage";
-import { removeTaskById, addTaskToList } from "../../tasks/utils/taskHelpers";
+import {
+  removeTaskById,
+  addTaskToList,
+  type Task,
+} from "../../tasks/utils/taskHelpers";
 
 const STORAGE_KEY = "dailyFocus_focusList";
 const MAX_FOCUS_TASKS = 4;
@@ -14,14 +18,19 @@ const MAX_FOCUS_TASKS = 4;
  * @returns {Function} removeFromFocus - Remove a task from focus list
  * @returns {Function} canAddToFocus - Check if focus list has room
  */
-const useFocusList = () => {
+const useFocusList = (): {
+  focusList: Task[];
+  addToFocus: Function;
+  removeFromFocus: (id: string) => void;
+  canAddToFocus: Function;
+} => {
   const [focusList, setFocusList] = useLocalStorage(STORAGE_KEY, []);
 
   /**
    * @param {Object} task - task object to add to focus list
    * @returns {boolean} true if added, false if list is full
    */
-  const addToFocus = (task) => {
+  const addToFocus = (task: Task) => {
     if (!task || focusList.length >= MAX_FOCUS_TASKS) {
       return false;
     }
@@ -34,7 +43,7 @@ const useFocusList = () => {
   /**
    * @param {string} id - the ID of the task to remove from focus
    */
-  const removeFromFocus = (id) => {
+  const removeFromFocus = (id: string) => {
     setFocusList((prevList) => removeTaskById(prevList, id));
   };
 

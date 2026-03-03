@@ -1,27 +1,15 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-/*
-  make custom colors for the website so can use utility classes like bg-mint-500, text-mint-500, or fill-mint-500 in your HTML:
-  @theme {  --color-mint-500: oklch(0.72 0.11 178);}
- */
-
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  background-color: #8089d6;
-  color: rgb(0, 0, 0);
+  background-color: #11143d;
+  color: #f8fafc;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-:root.dark {
-  background-color: #11143d;
-  color: #f8fafc;
 }
 
 body {

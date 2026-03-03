@@ -1,7 +1,9 @@
 import useLocalStorage from "../../../hooks/useLocalStorage";
+import type { Dispatch, SetStateAction } from "react";
 import {
   addTaskToList,
   addCompletionTimestamp,
+  type Task,
 } from "../../tasks/utils/taskHelpers";
 
 const STORAGE_KEY = "dailyFocus_completed";
@@ -14,18 +16,25 @@ const STORAGE_KEY = "dailyFocus_completed";
  * @returns {Function} addToCompleted - Add a task to completed list
  */
 const useCompleted = () => {
-  const [completed, setCompleted] = useLocalStorage(STORAGE_KEY, []);
+  const [completed, setCompleted] = useLocalStorage(STORAGE_KEY, []) as [
+    Task[],
+    Dispatch<SetStateAction<Task[]>>,
+  ];
 
   /**
    * @param {Object} task - task object to add to completed list
    */
-  const addToCompleted = (task) => {
+  const addToCompleted = (task: Task) => {
     if (!task) {
       return;
     }
 
     const taskWithTimestamp = addCompletionTimestamp(task);
-    setCompleted((prevList) => addTaskToList(prevList, taskWithTimestamp));
+    if (taskWithTimestamp) {
+      setCompleted((prevList: Task[]) =>
+        addTaskToList(prevList, taskWithTimestamp),
+      );
+    }
   };
 
   return {

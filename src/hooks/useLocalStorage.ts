@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 
-/**
- * useLocalStorage - sync a state value with the localStorage
- * @param {string} key - the localStorage key
- * @param {*} initialValue - a value to be stored
- * @returns {[any, function]} [value, setValue]
- */
-export default function useLocalStorage(key, initialValue) {
+export default function useLocalStorage(key: string, initialValue: object[]) {
   const [state, setState] = useState(() => {
     try {
       const raw = window.localStorage.getItem(key);
-      const result = raw !== null ? JSON.parse(raw) : initialValue;
+      if (raw === null) {
+        return initialValue;
+      }
+      const result: object[] = JSON.parse(raw);
+
       return result;
     } catch (err) {
       console.error(err);

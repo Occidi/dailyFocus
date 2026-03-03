@@ -1,10 +1,17 @@
+export type Task = {
+  id: `${string}-${string}-${string}-${string}-${string}`;
+  text: string;
+  createdAt: number;
+  completedAt?: number;
+};
+
 /**
  * Creates a new task object with generated ID and timestamp.
  *
  * @param {string} text - The task description
  * @returns {Object|null} New task object or null if text is invalid
  */
-export const createTask = (text) => {
+export const createTask = (text: string): Task | null => {
   if (!text || text.trim() === "") {
     return null;
   }
@@ -23,8 +30,10 @@ export const createTask = (text) => {
  * @param {string} id - The ID of the task to remove
  * @returns {Array} New array without the specified task
  */
-export const removeTaskById = (tasks = [], id = "") =>
-  tasks.filter((task) => task.id !== id);
+export const removeTaskById = (
+  tasks: Array<Task> = [],
+  id: string = "",
+): Array<Task> => tasks.filter((task) => task.id !== id);
 
 /**
  * Adds a task to an array of tasks.
@@ -33,7 +42,10 @@ export const removeTaskById = (tasks = [], id = "") =>
  * @param {Object} task - Task object to add
  * @returns {Array} New array with the task added
  */
-export const addTaskToList = (tasks = [], task) => {
+export const addTaskToList = (
+  tasks: Array<Task> = [],
+  task: Task,
+): Array<Task> => {
   if (!Array.isArray(tasks) || !task) {
     throw new Error("trying to call addTaskToList with wrong parameters");
   }
@@ -48,8 +60,10 @@ export const addTaskToList = (tasks = [], task) => {
  * @param {string} id - The ID of the task to find
  * @returns {Object|undefined} The task object or undefined if not found
  */
-export const findTaskById = (tasks = [], id = "") =>
-  tasks.find((task) => task.id === id);
+export const findTaskById = (
+  tasks: Array<Task> = [],
+  id: string = "",
+): Task | undefined => tasks.find((task) => task.id === id);
 
 /**
  * Moves a task from one list to another.
@@ -61,12 +75,12 @@ export const findTaskById = (tasks = [], id = "") =>
  * @returns {Object|null} Object with updated lists {fromList, toList} or null if invalid
  */
 export const moveTaskBetweenLists = (
-  fromList = [],
-  toList = [],
-  taskId = "",
-  maxSize = null
+  fromList: Array<Task> = [],
+  toList: Array<Task> = [],
+  taskId: string = "",
+  maxSize: number = 0,
 ) => {
-  if (maxSize !== null && toList.length >= maxSize) {
+  if (maxSize && toList.length >= maxSize) {
     return null;
   }
 
@@ -90,7 +104,7 @@ export const moveTaskBetweenLists = (
  * @param {Object} task - The task object
  * @returns {Object} New task object with completedAt timestamp
  */
-export const addCompletionTimestamp = (task) => {
+export const addCompletionTimestamp = (task: Task): Task | null => {
   if (!task) {
     return null;
   }

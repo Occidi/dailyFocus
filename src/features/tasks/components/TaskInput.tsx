@@ -26,7 +26,7 @@ export default function TaskInput({ addTask }) {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Add a task..."
-          className="flex-1 min-w-0 rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900/60 text-gray-900 dark:text-slate-100 placeholder:text-slate-400 px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="flex-1 min-w-0 rounded-md border border-slate-600 bg-white bg-slate-900/60 text-gray-900 text-slate-100 placeholder:text-slate-400 px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500"
           aria-label="Task text"
         />
         <button
