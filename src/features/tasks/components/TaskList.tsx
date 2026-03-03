@@ -56,7 +56,7 @@ export default function TaskList({
   canAddToFocus,
 }: TaskListProps) {
   return (
-    <section className="rounded-lg bg-white bg-slate-900/60 border border-slate-700 p-4 sm:p-6 shadow-sm">
+    <section className="rounded-lg bg-slate-900/60 border border-slate-700 p-4 sm:p-6 shadow-sm">
       {tasks.length === 0 ? (
         <p className="text-sm text-gray-600 text-slate-400">
           No tasks yet. Add your first task to get started!

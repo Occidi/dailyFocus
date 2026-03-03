@@ -9,7 +9,7 @@ function FocusList({
   onComplete: (taskId: string) => void;
 }) {
   return (
-    <section className="rounded-lg bg-white bg-slate-900/60 border border-slate-200 border-slate-700 p-4 sm:p-6 shadow-sm">
+    <section className="rounded-lg bg-slate-900/60 border border-slate-200 border-slate-700 p-4 sm:p-6 shadow-sm">
       <h2 className="text-xl font-semibold mb-4 text-gray-900 text-slate-100">
         Focus List
       </h2>
